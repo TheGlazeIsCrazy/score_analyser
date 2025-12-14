@@ -1,5 +1,6 @@
 def parse_scores(path: str) -> list:
-    pass
+    with open(path) as data:
+        return data.read().split(",")
 
 def throw_exception(scores: list, pass_threshold: float) -> str:
     pass
