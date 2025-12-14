@@ -23,7 +23,21 @@ def throw_exception(scores: list, pass_threshold: float) -> str:
         return "Error. The provided file is empty."
 
 def convert_to_letters(scores: list) -> list:
-    pass
+    letters = []
+
+    for score in scores:
+        if score >= 90:
+            letters.append("A")
+        elif score >= 80:
+            letters.append("B")
+        elif score >= 70:
+            letters.append("C")
+        elif score >= 60:
+            letters.append("D")
+        else:
+            letters.append("F")
+
+    return letters
 
 def calculate_average(scores: list) -> float:
     pass
