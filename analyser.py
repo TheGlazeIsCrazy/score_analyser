@@ -40,7 +40,7 @@ def convert_to_letters(scores: list) -> list:
     return letters
 
 def calculate_average(scores: list) -> float:
-    pass
+    return sum(scores) / len(scores)
 
 def analyse_scores(scores: list) -> float:
     pass
