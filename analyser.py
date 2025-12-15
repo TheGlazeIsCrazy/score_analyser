@@ -42,9 +42,23 @@ def convert_to_letters(scores: list) -> list:
 def calculate_average(scores: list) -> float:
     return sum(scores) / len(scores)
 
-def analyse_scores(scores: list) -> float:
-    pass
+def analyse_scores(scores: list) -> str:
+    pass_count = 0
+
+    for score in scores:
+        if score >= pass_threshold:
+            pass_count += 1
+
+    return f"""
+    Scores: {",".join(scores)}
+    Average: {average}, {convert_to_letters([average])[0]}
+    Highest: {max(scores)}, {convert_to_letters([max(scores)])[0]}
+    Lowest: {min(scores)}, {convert_to_letters([min(scores)])[0]}
+    Pass count: {pass_count}
+    """
 
 if __name__ == "__main__":
     path = input("Please enter a file path: ")
     pass_threshold = float(input("Please enter a pass threshold: "))
+
+    average = None
