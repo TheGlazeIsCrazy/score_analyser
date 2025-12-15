@@ -1,9 +1,9 @@
-def parse_scores(path: str) -> list:
+def parse_scores(path: str) -> list: # This returns an arbitrarily long list of strings.
     try:
-        with open(path) as data:
+        with open(path) as data: # This automatically closes the file after the scores are parsed.
             return data.read().split(",")
     except:
-        return "invalid path"
+        return "invalid path" # This tells the throw_exception(scores, pass_threshold) function that the file path doesn't exist.
 
 def throw_exception(scores: list, pass_threshold: float) -> str:
     if scores == "invalid path":
@@ -15,17 +15,17 @@ def throw_exception(scores: list, pass_threshold: float) -> str:
     if not(0 <= pass_threshold <= 100):
         return "Error. The pass threshold is not between zero and 100."
 
-    for score in scores:
+    for score in scores: # This handles non-numeric scores and invalid scores in a single loop.
         if type(score) != float:
-            return "Error. The provided file may contain non-numeric scores. If this is not the case, ensure that the list is comma-separated."
+            return "Error. The provided file may contain non-numeric scores. If this is not the case, ensure that the list is comma-separated." # This error message also considers formatting mistakes, like space-separated lists.
         
         if not(0 <= score <= 100):
             return "Error. The provided file contains scores not between 0 and 100."
 
-def convert_to_letters(scores: list) -> list:
+def convert_to_letters(scores: list) -> list: # This returns an arbitrarily long list of strings.
     letters = []
 
-    for score in scores:
+    for score in scores: # This loop is based on a common US percentage scale.
         if score >= 90:
             letters.append("A")
         elif score >= 80:
@@ -42,7 +42,7 @@ def convert_to_letters(scores: list) -> list:
 def calculate_average(scores: list) -> float:
     return sum(scores) / len(scores)
 
-def analyse_scores(scores: list) -> str:
+def analyse_scores(scores: list) -> str: # Most of the statistics are calculated directly inside the f-string.
     pass_count = 0
 
     for score in scores:
@@ -57,13 +57,20 @@ def analyse_scores(scores: list) -> str:
     Pass count: {pass_count}
     """
 
+    # Line 54 puts the variable average inside a list in order to satisfy the convert_to_letters(scores) function.
+    # The above function returns a list of strings, which has a length of 1, in this case.
+    # To format this as a string instead of a 1-element list, for aesthetic purposes, [0] is used to return a string.
+    # Therefore, the full formatting is: f"Average: {average}, {convert_to_letters([average])[0]}"
+
+    # A similar principle is used on lines 55 and 56.
+
 if __name__ == "__main__":
     path = input("Please enter a file path: ")
     pass_threshold = float(input("Please enter a pass threshold: "))
 
     parsed_scores = parse_scores(path)
 
-    scores = []
+    scores = [] # This list will contain a usable version of the parsed scores, converting each score into a float if possible.
 
     if parsed_scores == "invalid path":
         scores = "invalid path"
@@ -72,7 +79,8 @@ if __name__ == "__main__":
             try:
                 scores.append(float(to_parse))
             except:
-                scores.append(to_parse)
+                scores.append(to_parse) # If a score can't be converted into a float, the score is appended to the list scores.
+                                        # Any unconverted scores will be discovered to be invalid by the throw_exception(scores, pass_threshold) function.
 
     exception = throw_exception(scores, pass_threshold)
 
